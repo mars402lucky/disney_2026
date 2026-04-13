@@ -5,51 +5,125 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Disney World Choice Board</title>
 <style>
+  :root {
+    --bg: #f5f4f0;
+    --text: #1a1a1a;
+    --text-muted: #666;
+    --text-faint: #888;
+    --text-label: #aaa;
+    --card-bg: #fff;
+    --food-bg: #faf9f6;
+    --border: #e0ddd6;
+    --border-light: #ede9e2;
+    --legend-bg: #f0ede8;
+    --gap-bg: #e8e5e0;
+    --gap-border: #d8d5d0;
+    --tab-bg: #fff;
+    --tab-off: #888;
+    --tab-on: #1a1a1a;
+    --note-bg: #f0ede8;
+    --warn-bg: #fef3c7;
+    --warn-border: #fcd34d;
+    --warn-text: #92400e;
+    --badge-ll-bg: #dbeafe;
+    --badge-ll-text: #1d4ed8;
+    --badge-avoid-bg: #fee2e2;
+    --badge-avoid-text: #b91c1c;
+    --badge-lunch-bg: #fef3c7;
+    --badge-lunch-text: #92400e;
+    --badge-snack-bg: #f3f4f6;
+    --badge-snack-text: #6b7280;
+    --badge-snack-border: #d1d5db;
+    --dot-ll: #3b82f6;
+    --dot-lunch: #f59e0b;
+    --dot-snack-bg: #d1d5db;
+    --dot-snack-border: #9ca3af;
+    --dot-avoid: #ef4444;
+    --ad-text: #1a1a1a;
+  }
+  body.dark {
+    --bg: #1a1a1a;
+    --text: #e8e8e8;
+    --text-muted: #999;
+    --text-faint: #777;
+    --text-label: #666;
+    --card-bg: #2a2a2a;
+    --food-bg: #242420;
+    --border: #333;
+    --border-light: #333;
+    --legend-bg: #222;
+    --gap-bg: #1e1e1e;
+    --gap-border: #2a2a2a;
+    --tab-bg: #222;
+    --tab-off: #666;
+    --tab-on: #e8e8e8;
+    --note-bg: #222;
+    --warn-bg: #3a2e10;
+    --warn-border: #5c4a1a;
+    --warn-text: #fbbf24;
+    --badge-ll-bg: #1e3a5f;
+    --badge-ll-text: #7cb3f4;
+    --badge-avoid-bg: #4a1c1c;
+    --badge-avoid-text: #f87171;
+    --badge-lunch-bg: #3a2e10;
+    --badge-lunch-text: #fbbf24;
+    --badge-snack-bg: #2a2a2a;
+    --badge-snack-text: #999;
+    --badge-snack-border: #555;
+    --dot-ll: #5b9cf6;
+    --dot-lunch: #fbbf24;
+    --dot-snack-bg: #555;
+    --dot-snack-border: #777;
+    --dot-avoid: #f87171;
+    --ad-text: #e8e8e8;
+  }
+
   * { box-sizing: border-box; margin: 0; padding: 0; }
-  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: #f5f4f0; color: #1a1a1a; max-width: 480px; margin: 0 auto; }
-  
+  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: var(--bg); color: var(--text); max-width: 480px; margin: 0 auto; }
+
   /* Tabs */
-  .tabs { display: flex; background: #fff; border-bottom: 1px solid #e0ddd6; position: sticky; top: 0; z-index: 10; }
-  .tab { flex: 1; padding: 12px 4px; font-size: 12px; font-weight: 600; border: none; border-bottom: 2px solid transparent; background: transparent; cursor: pointer; color: #888; transition: all .15s; }
-  .tab.on { border-bottom-color: #1a1a1a; color: #1a1a1a; }
+  .tabs { display: flex; background: var(--tab-bg); border-bottom: 1px solid var(--border); position: sticky; top: 0; z-index: 10; }
+  .tab { flex: 1; padding: 12px 4px; font-size: 12px; font-weight: 600; border: none; border-bottom: 2px solid transparent; background: transparent; cursor: pointer; color: var(--tab-off); transition: all .15s; }
+  .tab.on { border-bottom-color: var(--tab-on); color: var(--tab-on); }
+  .theme-toggle { width: 40px; padding: 8px 4px; font-size: 16px; border: none; background: transparent; cursor: pointer; color: var(--tab-off); border-bottom: 2px solid transparent; display: flex; align-items: center; justify-content: center; }
 
   /* Legend */
-  .legend { padding: 6px 16px; background: #f0ede8; border-bottom: 1px solid #e0ddd6; display: flex; gap: 10px; flex-wrap: wrap; align-items: center; }
-  .legend span { font-size: 11px; color: #666; display: inline-flex; align-items: center; gap: 4px; }
+  .legend { padding: 6px 16px; background: var(--legend-bg); border-bottom: 1px solid var(--border); display: flex; gap: 10px; flex-wrap: wrap; align-items: center; }
+  .legend span { font-size: 11px; color: var(--text-muted); display: inline-flex; align-items: center; gap: 4px; }
   .dot { width: 8px; height: 8px; border-radius: 2px; display: inline-block; }
-  .dot-ll { background: #3b82f6; }
-  .dot-lunch { background: #f59e0b; }
-  .dot-snack { background: #d1d5db; border: 1px solid #9ca3af; }
-  .dot-avoid { background: #ef4444; }
+  .dot-ll { background: var(--dot-ll); }
+  .dot-lunch { background: var(--dot-lunch); }
+  .dot-snack { background: var(--dot-snack-bg); border: 1px solid var(--dot-snack-border); }
+  .dot-avoid { background: var(--dot-avoid); }
 
   /* Park header */
-  .park-note { padding: 8px 16px; background: #f0ede8; border-bottom: 1px solid #e0ddd6; font-size: 12px; color: #666; }
-  .park-warn { padding: 8px 16px; background: #fef3c7; border-bottom: 1px solid #fcd34d; font-size: 12px; color: #92400e; font-weight: 600; }
+  .park-note { padding: 8px 16px; background: var(--note-bg); border-bottom: 1px solid var(--border); font-size: 12px; color: var(--text-muted); }
+  .park-warn { padding: 8px 16px; background: var(--warn-bg); border-bottom: 1px solid var(--warn-border); font-size: 12px; color: var(--warn-text); font-weight: 600; }
 
   /* Land sections */
-  .gap { height: 8px; background: #e8e5e0; border-top: 1px solid #d8d5d0; border-bottom: 1px solid #d8d5d0; }
-  .land-header { font-size: 10px; letter-spacing: .1em; text-transform: uppercase; color: #888; padding: 10px 16px 2px; font-weight: 600; }
-  .land-sub { font-size: 11px; color: #aaa; padding: 0 16px 8px; }
+  .gap { height: 8px; background: var(--gap-bg); border-top: 1px solid var(--gap-border); border-bottom: 1px solid var(--gap-border); }
+  .land-header { font-size: 10px; letter-spacing: .1em; text-transform: uppercase; color: var(--text-faint); padding: 10px 16px 2px; font-weight: 600; }
+  .land-sub { font-size: 11px; color: var(--text-label); padding: 0 16px 8px; }
 
   /* Ride rows */
-  .ride { padding: 9px 16px; border-top: 1px solid #ede9e2; background: #fff; }
+  .ride { padding: 9px 16px; border-top: 1px solid var(--border-light); background: var(--card-bg); }
   .ride-row { display: flex; align-items: flex-start; justify-content: space-between; gap: 8px; }
-  .ride-name { font-size: 14px; font-weight: 600; color: #1a1a1a; flex: 1; line-height: 1.3; }
+  .ride-name { font-size: 14px; font-weight: 600; color: var(--text); flex: 1; line-height: 1.3; }
   .badges { display: flex; gap: 4px; flex-shrink: 0; flex-wrap: wrap; justify-content: flex-end; }
   .badge { font-size: 11px; padding: 2px 7px; border-radius: 4px; white-space: nowrap; font-weight: 600; }
-  .b-ll { background: #dbeafe; color: #1d4ed8; }
-  .b-avoid { background: #fee2e2; color: #b91c1c; }
-  .ride-note { margin: 4px 0 0; font-size: 12px; color: #666; line-height: 1.45; }
+  .b-ll { background: var(--badge-ll-bg); color: var(--badge-ll-text); }
+  .b-avoid { background: var(--badge-avoid-bg); color: var(--badge-avoid-text); }
+  .ride-note { margin: 4px 0 0; font-size: 12px; color: var(--text-muted); line-height: 1.45; }
 
   /* Food rows */
-  .food { padding: 9px 16px; border-top: 1px solid #ede9e2; background: #faf9f6; }
+  .food { padding: 9px 16px; border-top: 1px solid var(--border-light); background: var(--food-bg); }
   .food-row { display: flex; align-items: flex-start; justify-content: space-between; gap: 8px; }
-  .food-name { font-size: 14px; font-weight: 600; color: #1a1a1a; flex: 1; line-height: 1.3; }
-  .b-lunch { background: #fef3c7; color: #92400e; }
-  .b-snack { background: #f3f4f6; color: #6b7280; border: 1px solid #d1d5db; }
-  .food-note { margin: 4px 0 0; font-size: 12px; color: #666; line-height: 1.5; }
-  .kd { color: #666; }
-  .ad { color: #1a1a1a; font-weight: 600; }
+  .food-name { font-size: 14px; font-weight: 600; color: var(--text); flex: 1; line-height: 1.3; }
+  .b-lunch { background: var(--badge-lunch-bg); color: var(--badge-lunch-text); }
+  .b-snack { background: var(--badge-snack-bg); color: var(--badge-snack-text); border: 1px solid var(--badge-snack-border); }
+  .food-note { margin: 4px 0 0; font-size: 12px; color: var(--text-muted); line-height: 1.5; }
+  .kd { color: var(--text-muted); }
+  .ad { color: var(--ad-text); font-weight: 600; }
 </style>
 </head>
 <body>
@@ -58,6 +132,7 @@
   <button class="tab on" id="btn-mk" onclick="sp('mk')">Magic Kingdom</button>
   <button class="tab" id="btn-ep" onclick="sp('ep')">EPCOT</button>
   <button class="tab" id="btn-ak" onclick="sp('ak')">Animal Kingdom</button>
+  <button class="theme-toggle" id="theme-btn" onclick="toggleTheme()" aria-label="Toggle dark mode"></button>
 </div>
 <div class="legend">
   <span><span class="dot dot-ll"></span>get LL / must-do</span>
@@ -66,7 +141,7 @@
   <span><span class="dot dot-avoid"></span>avoid</span>
 </div>
 
-<!-- ═══════════════ MAGIC KINGDOM ═══════════════ -->
+<!-- MK -->
 <div id="park-mk">
 <p class="park-note">Apr 28 · LLMP useful — grab Peter Pan and Jungle Cruise return times first</p>
 
@@ -75,11 +150,11 @@
 <div class="land-sub">Start here — best land for ages 3–5</div>
 
 <div class="ride">
-  <div class="ride-row"><span class="ride-name">Peter Pan's Flight</span><div class="badges"><span class="badge b-ll">get LL</span></div></div>
+  <div class="ride-row"><span class="ride-name">Peter Pan’s Flight</span><div class="badges"><span class="badge b-ll">get LL</span></div></div>
   <p class="ride-note">Top LL priority. Line hits 60–90 min and barely moves. Slightly dark but not scary — one of the most magical rides at WDW for this age.</p>
 </div>
 <div class="ride">
-  <div class="ride-row"><span class="ride-name">Enchanted Tales with Belle</span><div class="badges"><span class="badge b-ll">don't skip</span></div></div>
+  <div class="ride-row"><span class="ride-name">Enchanted Tales with Belle</span><div class="badges"><span class="badge b-ll">don’t skip</span></div></div>
   <p class="ride-note">Interactive show — one kid gets chosen to play a character alongside Belle. Best experience in any park for ages 3–5. Adults enjoy this one just as much.</p>
 </div>
 <div class="ride">
@@ -91,12 +166,12 @@
   <p class="ride-note">Two loading areas keep wait under 20 min. Kids control up/down themselves. No LL needed.</p>
 </div>
 <div class="ride">
-  <div class="ride-row"><span class="ride-name">it's a small world</span></div>
+  <div class="ride-row"><span class="ride-name">it’s a small world</span></div>
   <p class="ride-note">Slow, calm, colorful. Worth doing once. Walk-on in the evening.</p>
 </div>
 <div class="ride">
   <div class="ride-row"><span class="ride-name">Little Mermaid ride</span></div>
-  <p class="ride-note">Often near walk-on. Good if you're already passing through.</p>
+  <p class="ride-note">Often near walk-on. Good if you’re already passing through.</p>
 </div>
 <div class="ride">
   <div class="ride-row"><span class="ride-name">Princess Fairytale Hall</span></div>
@@ -108,11 +183,11 @@
 </div>
 <div class="food">
   <div class="food-row"><span class="food-name">Pinocchio Village Haus</span><div class="badges"><span class="badge b-lunch">lunch</span></div></div>
-  <p class="food-note"><span class="kd">Kids →</span> pasta and pizza. <span class="ad">Adults →</span> the flatbreads are the best option here. Not a destination meal but the window overlooks it's a small world boats floating past — unexpectedly fun while you eat.</p>
+  <p class="food-note"><span class="kd">Kids →</span> pasta and pizza. <span class="ad">Adults →</span> the flatbreads are the best option here. Not a destination meal but the window overlooks it’s a small world boats floating past — unexpectedly fun while you eat.</p>
 </div>
 <div class="food">
-  <div class="food-row"><span class="food-name">Gaston's Tavern</span><div class="badges"><span class="badge b-snack">snack</span></div></div>
-  <p class="food-note"><span class="kd">Kids →</span> LeFou's Brew (frozen apple juice slush) and the enormous cinnamon roll to share. <span class="ad">Adults →</span> the slow-roasted pork shank is a surprisingly solid snack — far more interesting than the cinnamon roll and worth trying.</p>
+  <div class="food-row"><span class="food-name">Gaston’s Tavern</span><div class="badges"><span class="badge b-snack">snack</span></div></div>
+  <p class="food-note"><span class="kd">Kids →</span> LeFou’s Brew (frozen apple juice slush) and the enormous cinnamon roll to share. <span class="ad">Adults →</span> the slow-roasted pork shank is a surprisingly solid snack — far more interesting than the cinnamon roll and worth trying.</p>
 </div>
 
 <div class="gap"></div>
@@ -120,7 +195,7 @@
 
 <div class="ride">
   <div class="ride-row"><span class="ride-name">Jungle Cruise</span><div class="badges"><span class="badge b-ll">get LL</span></div></div>
-  <p class="ride-note">Second LL priority. The skipper's terrible jokes land perfectly with kids — adults groan along in the best way. 25–40 min without LL.</p>
+  <p class="ride-note">Second LL priority. The skipper’s terrible jokes land perfectly with kids — adults groan along in the best way. 25–40 min without LL.</p>
 </div>
 <div class="ride">
   <div class="ride-row"><span class="ride-name">Magic Carpets of Aladdin</span></div>
@@ -144,15 +219,15 @@
 </div>
 <div class="ride">
   <div class="ride-row"><span class="ride-name">Tomorrowland Speedway</span></div>
-  <p class="ride-note">Kids feel like they're driving. Skip if wait is over 20 min.</p>
+  <p class="ride-note">Kids feel like they’re driving. Skip if wait is over 20 min.</p>
 </div>
 <div class="ride">
   <div class="ride-row"><span class="ride-name">Monsters Inc. Laugh Floor</span></div>
   <p class="ride-note">Live interactive comedy show. Great A/C break, walk in anytime. Funnier for adults than expected.</p>
 </div>
 <div class="food">
-  <div class="food-row"><span class="food-name">Cosmic Ray's Starlight Café</span><div class="badges"><span class="badge b-lunch">lunch</span></div></div>
-  <p class="food-note"><span class="kd">Kids →</span> chicken strips, mac & cheese, kids' burgers. <span class="ad">Adults →</span> skip the burgers — get the rotisserie chicken. Fastest option if you're on the Tomorrowland side of the park.</p>
+  <div class="food-row"><span class="food-name">Cosmic Ray’s Starlight Cafe</span><div class="badges"><span class="badge b-lunch">lunch</span></div></div>
+  <p class="food-note"><span class="kd">Kids →</span> chicken strips, mac & cheese, kids’ burgers. <span class="ad">Adults →</span> skip the burgers — get the rotisserie chicken. Fastest option if you’re on the Tomorrowland side of the park.</p>
 </div>
 
 <div class="gap"></div>
@@ -175,16 +250,16 @@
   <p class="ride-note">Town Square Theater. Go at rope drop before waits build. Probably the photo you frame.</p>
 </div>
 <div class="ride">
-  <div class="ride-row"><span class="ride-name">Festival of Fantasy Parade</span><div class="badges"><span class="badge b-ll">don't miss</span></div></div>
+  <div class="ride-row"><span class="ride-name">Festival of Fantasy Parade</span><div class="badges"><span class="badge b-ll">don’t miss</span></div></div>
   <p class="ride-note">Runs once daily ~3pm. Grab a Main Street spot 30 min early. Kids this age go completely wild for it.</p>
 </div>
 <div class="food">
   <div class="food-row"><span class="food-name">Main Street Bakery</span><div class="badges"><span class="badge b-snack">snack</span></div></div>
-  <p class="food-note">It's a Starbucks. <span class="kd">Kids →</span> cake pops, hot chocolate. <span class="ad">Adults →</span> the only real coffee in Magic Kingdom. Get here right at park open before the line builds. Non-negotiable with three kids under 6.</p>
+  <p class="food-note">It’s a Starbucks. <span class="kd">Kids →</span> cake pops, hot chocolate. <span class="ad">Adults →</span> the only real coffee in Magic Kingdom. Get here right at park open before the line builds. Non-negotiable with three kids under 6.</p>
 </div>
 <div class="food">
   <div class="food-row"><span class="food-name">Mickey Premium Ice Cream Bar</span><div class="badges"><span class="badge b-snack">snack</span></div></div>
-  <p class="food-note">Any cart. Works for everyone. Budget one per kid and don't pretend you won't get one yourself.</p>
+  <p class="food-note">Any cart. Works for everyone. Budget one per kid and don’t pretend you won’t get one yourself.</p>
 </div>
 <div class="food">
   <div class="food-row"><span class="food-name">Popcorn with Mickey bucket</span><div class="badges"><span class="badge b-snack">snack</span></div></div>
@@ -192,7 +267,7 @@
 </div>
 </div>
 
-<!-- ═══════════════ EPCOT ═══════════════ -->
+<!-- EPCOT -->
 <div id="park-ep">
 <p class="park-note">Apr 29 · Fewest kid rides of the three parks — lean into food and World Showcase. Adults can carry drinks freely anywhere around the showcase.</p>
 
@@ -225,7 +300,7 @@
   <p class="ride-note">Royal Sommerhus. 30–45 min wait. Worth it for Frozen fans, skip otherwise.</p>
 </div>
 <div class="food">
-  <div class="food-row"><span class="food-name">Kringla Bakeri og Kafé</span><div class="badges"><span class="badge b-snack">snack</span></div></div>
+  <div class="food-row"><span class="food-name">Kringla Bakeri og Kafe</span><div class="badges"><span class="badge b-snack">snack</span></div></div>
   <p class="food-note"><span class="kd">Kids →</span> school bread (cardamom custard roll with coconut) — the iconic EPCOT snack; get one per person. <span class="ad">Adults →</span> the open-faced gravlax sandwich and rice cream are worth trying. Norway also has aquavit shots for adults who want a drink while the kids eat.</p>
 </div>
 
@@ -233,16 +308,16 @@
 <div class="land-header">World Showcase · France</div>
 
 <div class="ride">
-  <div class="ride-row"><span class="ride-name">Remy's Ratatouille Adventure</span><div class="badges"><span class="badge b-ll">get LL</span></div></div>
+  <div class="ride-row"><span class="ride-name">Remy’s Ratatouille Adventure</span><div class="badges"><span class="badge b-ll">get LL</span></div></div>
   <p class="ride-note">Best ride at EPCOT for this age group — shrink-down kitchen adventure. 45–60 min without LL. Essential.</p>
 </div>
 <div class="food">
   <div class="food-row"><span class="food-name">Les Halles Boulangerie-Patisserie</span><div class="badges"><span class="badge b-lunch">lunch</span></div></div>
-  <p class="food-note">Best lunch at EPCOT. <span class="kd">Kids →</span> ham and cheese crepes, kids' sandwiches, pastries. <span class="ad">Adults →</span> the French onion soup, croque monsieur, and a glass of wine — the most legitimately adult lunch in any Disney park. Go early; pastries sell out.</p>
+  <p class="food-note">Best lunch at EPCOT. <span class="kd">Kids →</span> ham and cheese crepes, kids’ sandwiches, pastries. <span class="ad">Adults →</span> the French onion soup, croque monsieur, and a glass of wine — the most legitimately adult lunch in any Disney park. Go early; pastries sell out.</p>
 </div>
 <div class="food">
   <div class="food-row"><span class="food-name">Les Halles pastries</span><div class="badges"><span class="badge b-snack">snack</span></div></div>
-  <p class="food-note"><span class="kd">Kids →</span> croissant, pain au chocolat. <span class="ad">Adults →</span> the croissant donut and éclairs are excellent. Grab snacks here at the same time as lunch — one trip through the line.</p>
+  <p class="food-note"><span class="kd">Kids →</span> croissant, pain au chocolat. <span class="ad">Adults →</span> the croissant donut and eclairs are excellent. Grab snacks here at the same time as lunch — one trip through the line.</p>
 </div>
 
 <div class="gap"></div>
@@ -262,7 +337,7 @@
 <div class="land-sub">No rides — food stop only</div>
 
 <div class="food">
-  <div class="food-row"><span class="food-name">Tangierine Café</span><div class="badges"><span class="badge b-lunch">lunch</span></div></div>
+  <div class="food-row"><span class="food-name">Tangierine Cafe</span><div class="badges"><span class="badge b-lunch">lunch</span></div></div>
   <p class="food-note">Consistently underrated with almost always short lines. <span class="kd">Kids →</span> chicken tenders, hummus and pita. <span class="ad">Adults →</span> the chicken and lamb shawarma platter with hummus and tabouleh is one of the best value meals in all of World Showcase.</p>
 </div>
 
@@ -283,7 +358,7 @@
 </div>
 </div>
 
-<!-- ═══════════════ ANIMAL KINGDOM ═══════════════ -->
+<!-- AK -->
 <div id="park-ak">
 <p class="park-warn">Go to Kilimanjaro Safaris the moment the park opens. Animals most active in the morning.</p>
 
@@ -301,18 +376,18 @@
 </div>
 <div class="food">
   <div class="food-row"><span class="food-name">Harambe Market</span><div class="badges"><span class="badge b-lunch">lunch</span></div></div>
-  <p class="food-note">Convenient right off Safaris. <span class="kd">Kids →</span> chicken skewers, corn, kids' options. <span class="ad">Adults →</span> the ribs and slow-roasted chicken are solid. Dawa Bar is steps away — adults can grab a Tusker Lager or African-spiced cocktail while the kids eat.</p>
+  <p class="food-note">Convenient right off Safaris. <span class="kd">Kids →</span> chicken skewers, corn, kids’ options. <span class="ad">Adults →</span> the ribs and slow-roasted chicken are solid. Dawa Bar is steps away — adults can grab a Tusker Lager or African-spiced cocktail while the kids eat.</p>
 </div>
 
 <div class="gap"></div>
 <div class="land-header">Pandora — World of Avatar</div>
 
 <div class="ride">
-  <div class="ride-row"><span class="ride-name">Na'vi River Journey</span><div class="badges"><span class="badge b-ll">get LL</span></div></div>
+  <div class="ride-row"><span class="ride-name">Na’vi River Journey</span><div class="badges"><span class="badge b-ll">get LL</span></div></div>
   <p class="ride-note">Beautiful, calming boat through bioluminescent forest. LL fills fast — grab it early. Genuinely stunning for adults and kids alike.</p>
 </div>
 <div class="food">
-  <div class="food-row"><span class="food-name">Satu'li Canteen</span><div class="badges"><span class="badge b-lunch">lunch</span></div></div>
+  <div class="food-row"><span class="food-name">Satu’li Canteen</span><div class="badges"><span class="badge b-lunch">lunch</span></div></div>
   <p class="food-note">Best food in the park. <span class="kd">Kids →</span> customizable bowls; mac & cheese base is a reliable win for picky eaters. <span class="ad">Adults →</span> the grain bowls with roasted meat are excellent and genuinely filling — healthiest QS at any Disney park.</p>
 </div>
 <div class="food">
@@ -322,7 +397,7 @@
 
 <div class="gap"></div>
 <div class="land-header">Shows</div>
-<div class="land-sub">Don't skip either of these</div>
+<div class="land-sub">Don’t skip either of these</div>
 
 <div class="ride">
   <div class="ride-row"><span class="ride-name">Festival of the Lion King</span><div class="badges"><span class="badge b-ll">must see</span></div></div>
@@ -345,7 +420,7 @@
 <div class="land-header">Discovery Island</div>
 
 <div class="ride">
-  <div class="ride-row"><span class="ride-name">It's Tough to be a Bug</span><div class="badges"><span class="badge b-avoid">avoid</span></div></div>
+  <div class="ride-row"><span class="ride-name">It’s Tough to be a Bug</span><div class="badges"><span class="badge b-avoid">avoid</span></div></div>
   <p class="ride-note">No height requirement but terrifying for young children — dark, very loud, bugs spray and sting the audience. Skip entirely with a 3yo regardless of what the sign says.</p>
 </div>
 <div class="ride">
@@ -354,11 +429,11 @@
 </div>
 <div class="food">
   <div class="food-row"><span class="food-name">Flame Tree BBQ</span><div class="badges"><span class="badge b-lunch">lunch</span></div></div>
-  <p class="food-note">Best full meal in any Disney park. <span class="kd">Kids →</span> chicken and mac & cheese kids' plates. <span class="ad">Adults →</span> the pulled pork sandwich, St. Louis ribs, and smoked chicken are all genuinely excellent. Outdoor waterfront seating. If you pick one sit-down lunch all trip, make it this one.</p>
+  <p class="food-note">Best full meal in any Disney park. <span class="kd">Kids →</span> chicken and mac & cheese kids’ plates. <span class="ad">Adults →</span> the pulled pork sandwich, St. Louis ribs, and smoked chicken are all genuinely excellent. Outdoor waterfront seating. If you pick one sit-down lunch all trip, make it this one.</p>
 </div>
 <div class="food">
   <div class="food-row"><span class="food-name">Creature Comforts</span><div class="badges"><span class="badge b-snack">snack</span></div></div>
-  <p class="food-note">It's a Starbucks. <span class="kd">Kids →</span> cake pops, hot chocolate. <span class="ad">Adults →</span> the only proper coffee at Animal Kingdom. Central location means you'll pass it multiple times — use it.</p>
+  <p class="food-note">It’s a Starbucks. <span class="kd">Kids →</span> cake pops, hot chocolate. <span class="ad">Adults →</span> the only proper coffee at Animal Kingdom. Central location means you’ll pass it multiple times — use it.</p>
 </div>
 <div class="food">
   <div class="food-row"><span class="food-name">Carrot cake cookie</span><div class="badges"><span class="badge b-snack">snack</span></div></div>
@@ -380,6 +455,20 @@ function sp(id) {
   });
 }
 sp('mk');
+
+function toggleTheme() {
+  var dark = document.body.classList.toggle('dark');
+  localStorage.setItem('disney-dark', dark ? '1' : '0');
+  document.getElementById('theme-btn').textContent = dark ? '\u2600\uFE0F' : '\uD83C\uDF19';
+}
+
+(function() {
+  var saved = localStorage.getItem('disney-dark');
+  var prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+  var dark = saved !== null ? saved === '1' : prefersDark;
+  if (dark) document.body.classList.add('dark');
+  document.getElementById('theme-btn').textContent = dark ? '\u2600\uFE0F' : '\uD83C\uDF19';
+})();
 </script>
 </body>
 </html>
