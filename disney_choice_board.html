@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Disney World Choice Board</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: #f5f4f0; color: #1a1a1a; max-width: 480px; margin: 0 auto; }
+  
+  /* Tabs */
+  .tabs { display: flex; background: #fff; border-bottom: 1px solid #e0ddd6; position: sticky; top: 0; z-index: 10; }
+  .tab { flex: 1; padding: 12px 4px; font-size: 12px; font-weight: 600; border: none; border-bottom: 2px solid transparent; background: transparent; cursor: pointer; color: #888; transition: all .15s; }
+  .tab.on { border-bottom-color: #1a1a1a; color: #1a1a1a; }
+
+  /* Legend */
+  .legend { padding: 6px 16px; background: #f0ede8; border-bottom: 1px solid #e0ddd6; display: flex; gap: 10px; flex-wrap: wrap; align-items: center; }
+  .legend span { font-size: 11px; color: #666; display: inline-flex; align-items: center; gap: 4px; }
+  .dot { width: 8px; height: 8px; border-radius: 2px; display: inline-block; }
+  .dot-ll { background: #3b82f6; }
+  .dot-lunch { background: #f59e0b; }
+  .dot-snack { background: #d1d5db; border: 1px solid #9ca3af; }
+  .dot-avoid { background: #ef4444; }
+
+  /* Park header */
+  .park-note { padding: 8px 16px; background: #f0ede8; border-bottom: 1px solid #e0ddd6; font-size: 12px; color: #666; }
+  .park-warn { padding: 8px 16px; background: #fef3c7; border-bottom: 1px solid #fcd34d; font-size: 12px; color: #92400e; font-weight: 600; }
+
+  /* Land sections */
+  .gap { height: 8px; background: #e8e5e0; border-top: 1px solid #d8d5d0; border-bottom: 1px solid #d8d5d0; }
+  .land-header { font-size: 10px; letter-spacing: .1em; text-transform: uppercase; color: #888; padding: 10px 16px 2px; font-weight: 600; }
+  .land-sub { font-size: 11px; color: #aaa; padding: 0 16px 8px; }
+
+  /* Ride rows */
+  .ride { padding: 9px 16px; border-top: 1px solid #ede9e2; background: #fff; }
+  .ride-row { display: flex; align-items: flex-start; justify-content: space-between; gap: 8px; }
+  .ride-name { font-size: 14px; font-weight: 600; color: #1a1a1a; flex: 1; line-height: 1.3; }
+  .badges { display: flex; gap: 4px; flex-shrink: 0; flex-wrap: wrap; justify-content: flex-end; }
+  .badge { font-size: 11px; padding: 2px 7px; border-radius: 4px; white-space: nowrap; font-weight: 600; }
+  .b-ll { background: #dbeafe; color: #1d4ed8; }
+  .b-avoid { background: #fee2e2; color: #b91c1c; }
+  .ride-note { margin: 4px 0 0; font-size: 12px; color: #666; line-height: 1.45; }
+
+  /* Food rows */
+  .food { padding: 9px 16px; border-top: 1px solid #ede9e2; background: #faf9f6; }
+  .food-row { display: flex; align-items: flex-start; justify-content: space-between; gap: 8px; }
+  .food-name { font-size: 14px; font-weight: 600; color: #1a1a1a; flex: 1; line-height: 1.3; }
+  .b-lunch { background: #fef3c7; color: #92400e; }
+  .b-snack { background: #f3f4f6; color: #6b7280; border: 1px solid #d1d5db; }
+  .food-note { margin: 4px 0 0; font-size: 12px; color: #666; line-height: 1.5; }
+  .kd { color: #666; }
+  .ad { color: #1a1a1a; font-weight: 600; }
+</style>
+</head>
+<body>
+
+<div class="tabs">
+  <button class="tab on" id="btn-mk" onclick="sp('mk')">Magic Kingdom</button>
+  <button class="tab" id="btn-ep" onclick="sp('ep')">EPCOT</button>
+  <button class="tab" id="btn-ak" onclick="sp('ak')">Animal Kingdom</button>
+</div>
+<div class="legend">
+  <span><span class="dot dot-ll"></span>get LL / must-do</span>
+  <span><span class="dot dot-lunch"></span>lunch</span>
+  <span><span class="dot dot-snack"></span>snack</span>
+  <span><span class="dot dot-avoid"></span>avoid</span>
+</div>
+
+<!-- ═══════════════ MAGIC KINGDOM ═══════════════ -->
+<div id="park-mk">
+<p class="park-note">Apr 28 · LLMP useful — grab Peter Pan and Jungle Cruise return times first</p>
+
+<div class="gap"></div>
+<div class="land-header">Fantasyland</div>
+<div class="land-sub">Start here — best land for ages 3–5</div>
+
+<div class="ride">
+  <div class="ride-row"><span class="ride-name">Peter Pan's Flight</span><div class="badges"><span class="badge b-ll">get LL</span></div></div>
+  <p class="ride-note">Top LL priority. Line hits 60–90 min and barely moves. Slightly dark but not scary — one of the most magical rides at WDW for this age.</p>
+</div>
+<div class="ride">
+  <div class="ride-row"><span class="ride-name">Enchanted Tales with Belle</span><div class="badges"><span class="badge b-ll">don't skip</span></div></div>
+  <p class="ride-note">Interactive show — one kid gets chosen to play a character alongside Belle. Best experience in any park for ages 3–5. Adults enjoy this one just as much.</p>
+</div>
+<div class="ride">
+  <div class="ride-row"><span class="ride-name">Winnie the Pooh</span></div>
+  <p class="ride-note">Gentle and charming. The 3yo will love it. 20–30 min wait manageable without LL.</p>
+</div>
+<div class="ride">
+  <div class="ride-row"><span class="ride-name">Dumbo the Flying Elephant</span></div>
+  <p class="ride-note">Two loading areas keep wait under 20 min. Kids control up/down themselves. No LL needed.</p>
+</div>
+<div class="ride">
+  <div class="ride-row"><span class="ride-name">it's a small world</span></div>
+  <p class="ride-note">Slow, calm, colorful. Worth doing once. Walk-on in the evening.</p>
+</div>
+<div class="ride">
+  <div class="ride-row"><span class="ride-name">Little Mermaid ride</span></div>
+  <p class="ride-note">Often near walk-on. Good if you're already passing through.</p>
+</div>
+<div class="ride">
+  <div class="ride-row"><span class="ride-name">Princess Fairytale Hall</span></div>
+  <p class="ride-note">Meet Cinderella and Rapunzel. Budget 30–45 min. Prioritize if your kids are into princesses.</p>
+</div>
+<div class="ride">
+  <div class="ride-row"><span class="ride-name">Mad Tea Party</span></div>
+  <p class="ride-note">Spinning teacups. Gauge their tolerance first — some kids love it, some regret it immediately.</p>
+</div>
+<div class="food">
+  <div class="food-row"><span class="food-name">Pinocchio Village Haus</span><div class="badges"><span class="badge b-lunch">lunch</span></div></div>
+  <p class="food-note"><span class="kd">Kids →</span> pasta and pizza. <span class="ad">Adults →</span> the flatbreads are the best option here. Not a destination meal but the window overlooks it's a small world boats floating past — unexpectedly fun while you eat.</p>
+</div>
+<div class="food">
+  <div class="food-row"><span class="food-name">Gaston's Tavern</span><div class="badges"><span class="badge b-snack">snack</span></div></div>
+  <p class="food-note"><span class="kd">Kids →</span> LeFou's Brew (frozen apple juice slush) and the enormous cinnamon roll to share. <span class="ad">Adults →</span> the slow-roasted pork shank is a surprisingly solid snack — far more interesting than the cinnamon roll and worth trying.</p>
+</div>
+
+<div class="gap"></div>
+<div class="land-header">Adventureland</div>
+
+<div class="ride">
+  <div class="ride-row"><span class="ride-name">Jungle Cruise</span><div class="badges"><span class="badge b-ll">get LL</span></div></div>
+  <p class="ride-note">Second LL priority. The skipper's terrible jokes land perfectly with kids — adults groan along in the best way. 25–40 min without LL.</p>
+</div>
+<div class="ride">
+  <div class="ride-row"><span class="ride-name">Magic Carpets of Aladdin</span></div>
+  <p class="ride-note">Like Dumbo. Short wait. Good filler while in Adventureland.</p>
+</div>
+<div class="ride">
+  <div class="ride-row"><span class="ride-name">Pirates of the Caribbean</span></div>
+  <p class="ride-note">Dark — the 3yo may be nervous at first but usually adjusts. Twins will love it. Line moves fast, no LL needed.</p>
+</div>
+<div class="food">
+  <div class="food-row"><span class="food-name">Dole Whip</span><div class="badges"><span class="badge b-snack">snack</span></div></div>
+  <p class="food-note">Aloha Isle. <span class="kd">Kids →</span> classic pineapple soft serve. <span class="ad">Adults →</span> get the Dole Whip float — pineapple juice with soft serve on top. One of the best things in the park for everyone, full stop.</p>
+</div>
+
+<div class="gap"></div>
+<div class="land-header">Tomorrowland</div>
+
+<div class="ride">
+  <div class="ride-row"><span class="ride-name">Buzz Lightyear Space Ranger Spin</span></div>
+  <p class="ride-note">Shooter game with individual blasters. Kids take the competition very seriously. Wait rarely over 25 min.</p>
+</div>
+<div class="ride">
+  <div class="ride-row"><span class="ride-name">Tomorrowland Speedway</span></div>
+  <p class="ride-note">Kids feel like they're driving. Skip if wait is over 20 min.</p>
+</div>
+<div class="ride">
+  <div class="ride-row"><span class="ride-name">Monsters Inc. Laugh Floor</span></div>
+  <p class="ride-note">Live interactive comedy show. Great A/C break, walk in anytime. Funnier for adults than expected.</p>
+</div>
+<div class="food">
+  <div class="food-row"><span class="food-name">Cosmic Ray's Starlight Café</span><div class="badges"><span class="badge b-lunch">lunch</span></div></div>
+  <p class="food-note"><span class="kd">Kids →</span> chicken strips, mac & cheese, kids' burgers. <span class="ad">Adults →</span> skip the burgers — get the rotisserie chicken. Fastest option if you're on the Tomorrowland side of the park.</p>
+</div>
+
+<div class="gap"></div>
+<div class="land-header">Liberty Square</div>
+
+<div class="ride">
+  <div class="ride-row"><span class="ride-name">Haunted Mansion</span></div>
+  <p class="ride-note">Spooky but family-friendly. Gauge your 3yo first. Twins will love it. Adults consistently rank this a favorite. LL only if wait tops 40 min.</p>
+</div>
+<div class="food">
+  <div class="food-row"><span class="food-name">Columbia Harbour House</span><div class="badges"><span class="badge b-lunch">lunch</span></div></div>
+  <p class="food-note">Best quick service at MK. <span class="kd">Kids →</span> chicken strips, mac & cheese, grilled cheese. <span class="ad">Adults →</span> the New England clam chowder and lobster roll are legitimately excellent. Go upstairs — quieter seating, easier with little kids.</p>
+</div>
+
+<div class="gap"></div>
+<div class="land-header">Main Street, U.S.A.</div>
+
+<div class="ride">
+  <div class="ride-row"><span class="ride-name">Mickey & Minnie meet & greet</span></div>
+  <p class="ride-note">Town Square Theater. Go at rope drop before waits build. Probably the photo you frame.</p>
+</div>
+<div class="ride">
+  <div class="ride-row"><span class="ride-name">Festival of Fantasy Parade</span><div class="badges"><span class="badge b-ll">don't miss</span></div></div>
+  <p class="ride-note">Runs once daily ~3pm. Grab a Main Street spot 30 min early. Kids this age go completely wild for it.</p>
+</div>
+<div class="food">
+  <div class="food-row"><span class="food-name">Main Street Bakery</span><div class="badges"><span class="badge b-snack">snack</span></div></div>
+  <p class="food-note">It's a Starbucks. <span class="kd">Kids →</span> cake pops, hot chocolate. <span class="ad">Adults →</span> the only real coffee in Magic Kingdom. Get here right at park open before the line builds. Non-negotiable with three kids under 6.</p>
+</div>
+<div class="food">
+  <div class="food-row"><span class="food-name">Mickey Premium Ice Cream Bar</span><div class="badges"><span class="badge b-snack">snack</span></div></div>
+  <p class="food-note">Any cart. Works for everyone. Budget one per kid and don't pretend you won't get one yourself.</p>
+</div>
+<div class="food">
+  <div class="food-row"><span class="food-name">Popcorn with Mickey bucket</span><div class="badges"><span class="badge b-snack">snack</span></div></div>
+  <p class="food-note">Main Street cart. Get the refillable bucket — free refills at every popcorn cart across all three parks all trip. Pays for itself fast with three kids.</p>
+</div>
+</div>
+
+<!-- ═══════════════ EPCOT ═══════════════ -->
+<div id="park-ep">
+<p class="park-note">Apr 29 · Fewest kid rides of the three parks — lean into food and World Showcase. Adults can carry drinks freely anywhere around the showcase.</p>
+
+<div class="gap"></div>
+<div class="land-header">World Nature</div>
+
+<div class="ride">
+  <div class="ride-row"><span class="ride-name">Living with the Land</span></div>
+  <p class="ride-note">Slow boat through real working greenhouses. Calm and low wait. Adults find this more interesting than expected.</p>
+</div>
+<div class="ride">
+  <div class="ride-row"><span class="ride-name">Turtle Talk with Crush</span></div>
+  <p class="ride-note">Live interactive show — Crush takes audience questions in real time. Kids are mesmerized. Adults laugh just as hard. Walk-in anytime.</p>
+</div>
+<div class="food">
+  <div class="food-row"><span class="food-name">Sunshine Seasons</span><div class="badges"><span class="badge b-lunch">lunch</span></div></div>
+  <p class="food-note">Most varied quick service at EPCOT. <span class="kd">Kids →</span> chicken strips, mac & cheese, noodle bowls. <span class="ad">Adults →</span> the oak-grilled fish and roasted chicken are excellent — one of the better QS meals at WDW overall.</p>
+</div>
+
+<div class="gap"></div>
+<div class="land-header">World Showcase · Norway</div>
+<div class="land-sub">Rope drop Frozen Ever After before LLs sell out</div>
+
+<div class="ride">
+  <div class="ride-row"><span class="ride-name">Frozen Ever After</span><div class="badges"><span class="badge b-ll">get LL</span></div></div>
+  <p class="ride-note">Most in-demand at EPCOT — LLs sell out by 9:30am. If no LLMP, this is your rope drop target.</p>
+</div>
+<div class="ride">
+  <div class="ride-row"><span class="ride-name">Anna & Elsa meet & greet</span></div>
+  <p class="ride-note">Royal Sommerhus. 30–45 min wait. Worth it for Frozen fans, skip otherwise.</p>
+</div>
+<div class="food">
+  <div class="food-row"><span class="food-name">Kringla Bakeri og Kafé</span><div class="badges"><span class="badge b-snack">snack</span></div></div>
+  <p class="food-note"><span class="kd">Kids →</span> school bread (cardamom custard roll with coconut) — the iconic EPCOT snack; get one per person. <span class="ad">Adults →</span> the open-faced gravlax sandwich and rice cream are worth trying. Norway also has aquavit shots for adults who want a drink while the kids eat.</p>
+</div>
+
+<div class="gap"></div>
+<div class="land-header">World Showcase · France</div>
+
+<div class="ride">
+  <div class="ride-row"><span class="ride-name">Remy's Ratatouille Adventure</span><div class="badges"><span class="badge b-ll">get LL</span></div></div>
+  <p class="ride-note">Best ride at EPCOT for this age group — shrink-down kitchen adventure. 45–60 min without LL. Essential.</p>
+</div>
+<div class="food">
+  <div class="food-row"><span class="food-name">Les Halles Boulangerie-Patisserie</span><div class="badges"><span class="badge b-lunch">lunch</span></div></div>
+  <p class="food-note">Best lunch at EPCOT. <span class="kd">Kids →</span> ham and cheese crepes, kids' sandwiches, pastries. <span class="ad">Adults →</span> the French onion soup, croque monsieur, and a glass of wine — the most legitimately adult lunch in any Disney park. Go early; pastries sell out.</p>
+</div>
+<div class="food">
+  <div class="food-row"><span class="food-name">Les Halles pastries</span><div class="badges"><span class="badge b-snack">snack</span></div></div>
+  <p class="food-note"><span class="kd">Kids →</span> croissant, pain au chocolat. <span class="ad">Adults →</span> the croissant donut and éclairs are excellent. Grab snacks here at the same time as lunch — one trip through the line.</p>
+</div>
+
+<div class="gap"></div>
+<div class="land-header">World Showcase · Mexico</div>
+
+<div class="ride">
+  <div class="ride-row"><span class="ride-name">Gran Fiesta Tour</span></div>
+  <p class="ride-note">Slow boat through the Mexico pavilion pyramid. Nearly always walk-on. Good A/C rest break.</p>
+</div>
+<div class="food">
+  <div class="food-row"><span class="food-name">La Cantina de San Angel</span><div class="badges"><span class="badge b-lunch">lunch</span></div></div>
+  <p class="food-note">Outdoor seating on the World Showcase lagoon. <span class="kd">Kids →</span> tacos, quesadillas, empanadas. <span class="ad">Adults →</span> margaritas and tacos with a lagoon view. This is EPCOT — adults can carry drinks anywhere in the showcase.</p>
+</div>
+
+<div class="gap"></div>
+<div class="land-header">World Showcase · Morocco</div>
+<div class="land-sub">No rides — food stop only</div>
+
+<div class="food">
+  <div class="food-row"><span class="food-name">Tangierine Café</span><div class="badges"><span class="badge b-lunch">lunch</span></div></div>
+  <p class="food-note">Consistently underrated with almost always short lines. <span class="kd">Kids →</span> chicken tenders, hummus and pita. <span class="ad">Adults →</span> the chicken and lamb shawarma platter with hummus and tabouleh is one of the best value meals in all of World Showcase.</p>
+</div>
+
+<div class="gap"></div>
+<div class="land-header">World Celebration</div>
+
+<div class="ride">
+  <div class="ride-row"><span class="ride-name">Journey Into Imagination with Figment</span></div>
+  <p class="ride-note">Kids enjoy Figment. Good A/C filler, low wait.</p>
+</div>
+<div class="ride">
+  <div class="ride-row"><span class="ride-name">Disney & Pixar Short Film Festival</span></div>
+  <p class="ride-note">4D film show. Walk-in anytime. Best used when someone needs to sit and cool off.</p>
+</div>
+<div class="food">
+  <div class="food-row"><span class="food-name">Frozen lemonade or slush</span><div class="badges"><span class="badge b-snack">snack</span></div></div>
+  <p class="food-note">Various kiosks around World Showcase. <span class="kd">Kids →</span> the lemon slush is a reliable hit. <span class="ad">Adults →</span> most kiosks offer spiked versions. Essential for managing late April heat for everyone.</p>
+</div>
+</div>
+
+<!-- ═══════════════ ANIMAL KINGDOM ═══════════════ -->
+<div id="park-ak">
+<p class="park-warn">Go to Kilimanjaro Safaris the moment the park opens. Animals most active in the morning.</p>
+
+<div class="gap"></div>
+<div class="land-header">Africa</div>
+<div class="land-sub">Start here at rope drop</div>
+
+<div class="ride">
+  <div class="ride-row"><span class="ride-name">Kilimanjaro Safaris</span><div class="badges"><span class="badge b-ll">rope drop first</span></div></div>
+  <p class="ride-note">Real animals, open vehicles — lions, elephants, giraffes, hippos. No LL needed at park open. Best single thing in AK for kids and adults equally.</p>
+</div>
+<div class="ride">
+  <div class="ride-row"><span class="ride-name">Gorilla Falls Exploration Trail</span></div>
+  <p class="ride-note">Self-guided trail — gorillas, hippos, exotic birds. Low-energy and good right after Safaris while everyone is still in animal mode.</p>
+</div>
+<div class="food">
+  <div class="food-row"><span class="food-name">Harambe Market</span><div class="badges"><span class="badge b-lunch">lunch</span></div></div>
+  <p class="food-note">Convenient right off Safaris. <span class="kd">Kids →</span> chicken skewers, corn, kids' options. <span class="ad">Adults →</span> the ribs and slow-roasted chicken are solid. Dawa Bar is steps away — adults can grab a Tusker Lager or African-spiced cocktail while the kids eat.</p>
+</div>
+
+<div class="gap"></div>
+<div class="land-header">Pandora — World of Avatar</div>
+
+<div class="ride">
+  <div class="ride-row"><span class="ride-name">Na'vi River Journey</span><div class="badges"><span class="badge b-ll">get LL</span></div></div>
+  <p class="ride-note">Beautiful, calming boat through bioluminescent forest. LL fills fast — grab it early. Genuinely stunning for adults and kids alike.</p>
+</div>
+<div class="food">
+  <div class="food-row"><span class="food-name">Satu'li Canteen</span><div class="badges"><span class="badge b-lunch">lunch</span></div></div>
+  <p class="food-note">Best food in the park. <span class="kd">Kids →</span> customizable bowls; mac & cheese base is a reliable win for picky eaters. <span class="ad">Adults →</span> the grain bowls with roasted meat are excellent and genuinely filling — healthiest QS at any Disney park.</p>
+</div>
+<div class="food">
+  <div class="food-row"><span class="food-name">Pongu Pongu</span><div class="badges"><span class="badge b-snack">snack</span></div></div>
+  <p class="food-note"><span class="kd">Kids →</span> Night Blossom — gorgeous layered blue-green drink; kids love the look as much as the taste. <span class="ad">Adults →</span> the alcoholic version is available and equally worth getting. The pineapple cream cheese lumpia is also an underrated adult snack.</p>
+</div>
+
+<div class="gap"></div>
+<div class="land-header">Shows</div>
+<div class="land-sub">Don't skip either of these</div>
+
+<div class="ride">
+  <div class="ride-row"><span class="ride-name">Festival of the Lion King</span><div class="badges"><span class="badge b-ll">must see</span></div></div>
+  <p class="ride-note">Spectacular live show — acrobatics, singing, fire. All three kids will be transfixed. Adults will be genuinely moved. Check showtimes in the app; arrive 15 min early. Do not leave AK without seeing this.</p>
+</div>
+<div class="ride">
+  <div class="ride-row"><span class="ride-name">Finding Nemo: The Big Blue...and Beyond!</span></div>
+  <p class="ride-note">Musical show with characters. Good for kids. Nice break during the hottest part of the day.</p>
+</div>
+
+<div class="gap"></div>
+<div class="land-header">DinoLand U.S.A.</div>
+
+<div class="ride">
+  <div class="ride-row"><span class="ride-name">TriceraTop Spin</span></div>
+  <p class="ride-note">Like Dumbo but dinosaur-themed. Reliable short wait. Good low-key ride when kids need to reset.</p>
+</div>
+
+<div class="gap"></div>
+<div class="land-header">Discovery Island</div>
+
+<div class="ride">
+  <div class="ride-row"><span class="ride-name">It's Tough to be a Bug</span><div class="badges"><span class="badge b-avoid">avoid</span></div></div>
+  <p class="ride-note">No height requirement but terrifying for young children — dark, very loud, bugs spray and sting the audience. Skip entirely with a 3yo regardless of what the sign says.</p>
+</div>
+<div class="ride">
+  <div class="ride-row"><span class="ride-name">Tree of Life gardens</span></div>
+  <p class="ride-note">Walk around and spot all the animals carved into the tree. No wait. Good transition between areas.</p>
+</div>
+<div class="food">
+  <div class="food-row"><span class="food-name">Flame Tree BBQ</span><div class="badges"><span class="badge b-lunch">lunch</span></div></div>
+  <p class="food-note">Best full meal in any Disney park. <span class="kd">Kids →</span> chicken and mac & cheese kids' plates. <span class="ad">Adults →</span> the pulled pork sandwich, St. Louis ribs, and smoked chicken are all genuinely excellent. Outdoor waterfront seating. If you pick one sit-down lunch all trip, make it this one.</p>
+</div>
+<div class="food">
+  <div class="food-row"><span class="food-name">Creature Comforts</span><div class="badges"><span class="badge b-snack">snack</span></div></div>
+  <p class="food-note">It's a Starbucks. <span class="kd">Kids →</span> cake pops, hot chocolate. <span class="ad">Adults →</span> the only proper coffee at Animal Kingdom. Central location means you'll pass it multiple times — use it.</p>
+</div>
+<div class="food">
+  <div class="food-row"><span class="food-name">Carrot cake cookie</span><div class="badges"><span class="badge b-snack">snack</span></div></div>
+  <p class="food-note">Creature Comforts. Cream cheese frosting shaped like a carrot. <span class="kd">Kids →</span> will fight over it. <span class="ad">Adults →</span> get two. Soft, rich, one of the best snacks in any of the three parks.</p>
+</div>
+<div class="food">
+  <div class="food-row"><span class="food-name">Mickey pretzel</span><div class="badges"><span class="badge b-snack">snack</span></div></div>
+  <p class="food-note">Various carts near Discovery Island. Good for everyone — holds kids over between meals without a sugar crash.</p>
+</div>
+</div>
+
+<script>
+function sp(id) {
+  ['mk','ep','ak'].forEach(function(p) {
+    var e = document.getElementById('park-' + p);
+    var b = document.getElementById('btn-' + p);
+    if (e) e.style.display = p === id ? 'block' : 'none';
+    if (b) b.classList.toggle('on', p === id);
+  });
+}
+sp('mk');
+</script>
+</body>
+</html>
